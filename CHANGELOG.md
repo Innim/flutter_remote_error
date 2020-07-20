@@ -1,5 +1,6 @@
 ## Next release
 
+* Example code.
 * Add pedantic analysis ruleset.
 * Fix analysis problems.
 
