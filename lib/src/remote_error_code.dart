@@ -1,7 +1,5 @@
 // Коды серверных ошибок
 
-import 'dart:io';
-
 import 'package:async/async.dart';
 import 'package:dio/dio.dart';
 import 'package:innim_remote_error/innim_remote_error.dart'
@@ -65,13 +63,13 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   /// Определяет, является ли текущий результат ошибкой 'Не найдено'.
   bool get isNotFound =>
       toError()?.isGlobalError(GlobalErrorCode.notFound) ??
-      toDioError()?.response?.statusCode == HttpStatus.notFound ??
+      toDioError()?.response?.statusCode == _HttpStatus.notFound ??
       false;
 
   /// Определяет, является ли текущий результат ошибкой 'Неправильные данные запроса'.
   bool get isBadRequest =>
       toError()?.isGlobalError(GlobalErrorCode.badRequest) ??
-      toDioError()?.response?.statusCode == HttpStatus.badRequest ??
+      toDioError()?.response?.statusCode == _HttpStatus.badRequest ??
       false;
 
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
@@ -93,4 +91,9 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
 
   /// Возвращает [DioError] текущего результата.
   DioError toDioError() => error is DioError ? error as DioError : null;
+}
+
+class _HttpStatus {
+  static const badRequest = 400;
+  static const notFound = 404;
 }
