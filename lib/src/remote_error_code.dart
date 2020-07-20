@@ -10,7 +10,7 @@ import 'package:innim_remote_error/innim_remote_error.dart'
 /// Общие ошибки.
 class GlobalErrorCode {
   /// Домен.
-  static final domain = "Global";
+  static final domain = 'Global';
 
   /// Общая ошибка системы.
   static const systemError = 0;
@@ -30,7 +30,7 @@ class GlobalErrorCode {
 /// Ошибки сети.
 class NetworkErrorCode {
   /// Домен.
-  static final domain = "Network";
+  static final domain = 'Network';
 
   /// Превышен таймаут соединения.
   static const connectTimeout = 1;
@@ -91,10 +91,8 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   bool isNetworkError(int code) => toError()?.isNetworkError(code) ?? false;
 
   /// Возвращает [RemoteError] текущего результата.
-  RemoteError toError() =>
-      this.error is RemoteError ? this.error as RemoteError : null;
+  RemoteError toError() => error is RemoteError ? error as RemoteError : null;
 
   /// Возвращает [DioError] текущего результата.
-  DioError toDioError() =>
-      this.error is DioError ? this.error as DioError : null;
+  DioError toDioError() => error is DioError ? error as DioError : null;
 }

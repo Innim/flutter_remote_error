@@ -1,3 +1,8 @@
+## Next release
+
+* Add pedantic analysis ruleset.
+* Fix analysis problems.
+
 ## [0.1.0+2] - 2020-07-14
 
 * Export async `Result` and `ErrorResult`.
