@@ -3,6 +3,7 @@
 * Example code.
 * Add pedantic analysis ruleset.
 * Fix analysis problems.
+* Fixed: `isExternalServiceError` returns `true` for every internal server error.
 
 ## [0.1.0+2] - 2020-07-14
 

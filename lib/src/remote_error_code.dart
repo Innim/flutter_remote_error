@@ -76,9 +76,7 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
 
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isExternalServiceError =>
-      toError()?.isGlobalError(GlobalErrorCode.externalServiceError) ??
-      toDioError()?.response?.statusCode == HttpStatus.internalServerError ??
-      false;
+      toError()?.isGlobalError(GlobalErrorCode.externalServiceError) ?? false;
 
   /// Определяет, соответствует ли ошибка указанному домену и коду.
   bool isError(String domain, int code) =>
