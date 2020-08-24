@@ -42,6 +42,9 @@ class NetworkErrorCode {
   /// Запрос был отменен.
   static const cancel = 4;
 
+  /// Ошибка сокет соединения.
+  static const socketConnectionFailed = 5;
+
   NetworkErrorCode._();
 }
 
@@ -75,6 +78,11 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isExternalServiceError =>
       toError()?.isGlobalError(GlobalErrorCode.externalServiceError) ?? false;
+
+  /// Определяет, является ли текущий результат ошибкой сокет соединения.
+  bool get isSocketConnectionFailed =>
+      toError()?.isNetworkError(NetworkErrorCode.socketConnectionFailed) ??
+      false;
 
   /// Определяет, соответствует ли ошибка указанному домену и коду.
   bool isError(String domain, int code) =>

@@ -1,5 +1,10 @@
 ## Next release
 
+## [0.1.2] - 2020-08-24
+
+* Add code if socket connection failed.
+* Add method return if socket connection failed.
+
 ## [0.1.1] - 2020-07-20
 
 * Example code.
