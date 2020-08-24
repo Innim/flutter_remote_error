@@ -42,6 +42,9 @@ class NetworkErrorCode {
   /// Запрос был отменен.
   static const cancel = 4;
 
+  /// Ошибка соединения (нет соединения)
+  static const noInternetConnection = 5;
+
   NetworkErrorCode._();
 }
 
