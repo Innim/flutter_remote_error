@@ -79,6 +79,10 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   bool get isExternalServiceError =>
       toError()?.isGlobalError(GlobalErrorCode.externalServiceError) ?? false;
 
+  /// Определяет, является ли текущий результат ошибкой отсутствия интернет соединения.
+  bool get isNotInternetConnection =>
+      toError()?.isNetworkError(NetworkErrorCode.noInternetConnection) ?? false;
+
   /// Определяет, соответствует ли ошибка указанному домену и коду.
   bool isError(String domain, int code) =>
       toError()?.isError(domain, code) ?? false;
