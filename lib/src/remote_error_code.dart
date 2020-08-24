@@ -42,8 +42,8 @@ class NetworkErrorCode {
   /// Запрос был отменен.
   static const cancel = 4;
 
-  /// Ошибка соединения (нет соединения)
-  static const noInternetConnection = 5;
+  /// Ошибка сокет соединения.
+  static const socketConnectionFailed = 5;
 
   NetworkErrorCode._();
 }
@@ -79,9 +79,10 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   bool get isExternalServiceError =>
       toError()?.isGlobalError(GlobalErrorCode.externalServiceError) ?? false;
 
-  /// Определяет, является ли текущий результат ошибкой отсутствия интернет соединения.
-  bool get isNotInternetConnection =>
-      toError()?.isNetworkError(NetworkErrorCode.noInternetConnection) ?? false;
+  /// Определяет, является ли текущий результат ошибкой сокет соединения.
+  bool get isSocketConnectionFailed =>
+      toError()?.isNetworkError(NetworkErrorCode.socketConnectionFailed) ??
+      false;
 
   /// Определяет, соответствует ли ошибка указанному домену и коду.
   bool isError(String domain, int code) =>
