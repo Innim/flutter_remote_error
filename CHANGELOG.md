@@ -1,5 +1,9 @@
 ## Next release
 
+## [0.1.3] - 2020-08-25
+
+*  Modification  `isError` income not named parameter `code`.
+
 ## [0.1.2] - 2020-08-24
 
 * Add code if socket connection failed.
