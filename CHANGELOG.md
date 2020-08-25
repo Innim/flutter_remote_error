@@ -2,7 +2,7 @@
 
 ## [0.1.3] - 2020-08-25
 
-* Fixed: `isError` income optional param `code`.
+*  Modification  `isError` income not named parameter `code`.
 
 ## [0.1.2] - 2020-08-24
 
