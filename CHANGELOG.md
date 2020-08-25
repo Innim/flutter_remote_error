@@ -2,7 +2,7 @@
 
 ## [0.1.3] - 2020-08-25
 
-*Add method return if something network error.
+* Fixed: `isError` income optional param `code`.
 
 ## [0.1.2] - 2020-08-24
 

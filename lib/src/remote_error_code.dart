@@ -51,20 +51,14 @@ class NetworkErrorCode {
 /// Расширения [RemoteError] для работы с кодами общих ошибок.
 extension CommonRemoteErrorExtensionErrorCode on RemoteError {
   /// Определяет, соответствует ли ошибка указанному домену и коду.
-  bool isError(String domain, int code) =>
-      this.domain == domain && this.code == code;
-
-  /// Определяет, соответствует ли ошибка указанному домену.
-  bool isSomethingError(String domain) => this.domain == domain;
+  bool isError(String domain, {int code}) =>
+      this.domain == domain && (code == null || this.code == code);
 
   /// Определяет, соответствует ли ошибка указанному коду [GlobalErrorCode].
-  bool isGlobalError(int code) => isError(GlobalErrorCode.domain, code);
+  bool isGlobalError(int code) => isError(GlobalErrorCode.domain, code: code);
 
   /// Определяет, соответствует ли ошибка указанному коду [NetworkErrorCode].
-  bool isNetworkError(int code) => isError(NetworkErrorCode.domain, code);
-
-  /// Определяет, соответствует ли ошибка домену [NetworkErrorCode].
-  bool get isSomethingNetworkError => isSomethingError(NetworkErrorCode.domain);
+  bool isNetworkError(int code) => isError(NetworkErrorCode.domain, code: code);
 }
 
 /// Расширения [ErrorResult] для работы с кодами общих ошибок.
@@ -92,17 +86,13 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
 
   /// Определяет, соответствует ли ошибка указанному домену и коду.
   bool isError(String domain, int code) =>
-      toError()?.isError(domain, code) ?? false;
-
-  /// Определяет, соответствует ли ошибка любой ошибке сети.
-  bool get isSomethingNetworkError =>
-      toError()?.isSomethingNetworkError ?? false;
+      toError()?.isError(domain, code: code) ?? false;
 
   /// Определяет, соответствует ли ошибка указанному коду [GlobalErrorCode].
   bool isGlobalError(int code) => toError()?.isGlobalError(code) ?? false;
 
   /// Определяет, соответствует ли ошибка указанному коду [NetworkErrorCode].
-  bool isNetworkError(int code) => toError()?.isNetworkError(code) ?? false;
+  bool isNetworkError({int code}) => toError()?.isNetworkError(code) ?? false;
 
   /// Возвращает [RemoteError] текущего результата.
   RemoteError toError() => error is RemoteError ? error as RemoteError : null;
