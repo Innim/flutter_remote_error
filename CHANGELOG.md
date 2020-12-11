@@ -1,6 +1,9 @@
 ## Next release
 
+## [0.1.4] - 2020-12-11
+
 * Use `innim_lint` analysis options. Refactoring with new rules.
+* Add code for handshake phase failure.
 
 ## [0.1.3] - 2020-08-25
 

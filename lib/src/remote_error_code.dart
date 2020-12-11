@@ -45,6 +45,12 @@ class NetworkErrorCode {
   /// Ошибка сокет соединения.
   static const socketConnectionFailed = 5;
 
+  /// Соединение разорвано во время handshake.
+  ///
+  /// Произошла какая-то ошибка в фазе handshake при установке
+  /// защищенного соединения.
+  static const handshakeFailed = 6;
+
   NetworkErrorCode._();
 }
 
