@@ -1,5 +1,7 @@
 ## Next release
 
+* Use `innim_lint` analysis options. Refactoring with new rules.
+
 ## [0.1.3] - 2020-08-25
 
 *  Modification  `isError` income not named parameter `code`.

@@ -35,5 +35,7 @@ void main() {
 }
 
 ErrorResult _dioError({int statusCode}) {
-  return Result.error(DioError(response: Response(statusCode: statusCode)));
+  return Result<Object>.error(
+          DioError(response: Response<Object>(statusCode: statusCode)))
+      .asError;
 }
