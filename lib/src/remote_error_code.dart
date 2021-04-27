@@ -8,7 +8,7 @@ import 'package:innim_remote_error/innim_remote_error.dart'
 /// Общие ошибки.
 class GlobalErrorCode {
   /// Домен.
-  static final domain = 'Global';
+  static const domain = 'Global';
 
   /// Общая ошибка системы.
   static const systemError = 0;
@@ -28,7 +28,7 @@ class GlobalErrorCode {
 /// Ошибки сети.
 class NetworkErrorCode {
   /// Домен.
-  static final domain = 'Network';
+  static const domain = 'Network';
 
   /// Превышен таймаут соединения.
   static const connectTimeout = 1;
@@ -57,14 +57,14 @@ class NetworkErrorCode {
 /// Расширения [RemoteError] для работы с кодами общих ошибок.
 extension CommonRemoteErrorExtensionErrorCode on RemoteError {
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
-  bool isError(String domain, [int code]) =>
+  bool isError(String domain, [int? code]) =>
       this.domain == domain && (code == null || this.code == code);
 
   /// Определяет, соответствует ли ошибка указанному коду [GlobalErrorCode] если указан.
-  bool isGlobalError([int code]) => isError(GlobalErrorCode.domain, code);
+  bool isGlobalError([int? code]) => isError(GlobalErrorCode.domain, code);
 
   /// Определяет, соответствует ли ошибка указанному коду [NetworkErrorCode] если указан.
-  bool isNetworkError([int code]) => isError(NetworkErrorCode.domain, code);
+  bool isNetworkError([int? code]) => isError(NetworkErrorCode.domain, code);
 }
 
 /// Расширения [ErrorResult] для работы с кодами общих ошибок.
@@ -72,14 +72,12 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   /// Определяет, является ли текущий результат ошибкой 'Не найдено'.
   bool get isNotFound =>
       toError()?.isGlobalError(GlobalErrorCode.notFound) ??
-      toDioError()?.response?.statusCode == _HttpStatus.notFound ??
-      false;
+      toDioError()?.response?.statusCode == _HttpStatus.notFound;
 
   /// Определяет, является ли текущий результат ошибкой 'Неправильные данные запроса'.
   bool get isBadRequest =>
       toError()?.isGlobalError(GlobalErrorCode.badRequest) ??
-      toDioError()?.response?.statusCode == _HttpStatus.badRequest ??
-      false;
+      toDioError()?.response?.statusCode == _HttpStatus.badRequest;
 
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isExternalServiceError =>
@@ -91,20 +89,20 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
       false;
 
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
-  bool isError(String domain, [int code]) =>
+  bool isError(String domain, [int? code]) =>
       toError()?.isError(domain, code) ?? false;
 
   /// Определяет, соответствует ли ошибка указанному коду [GlobalErrorCode] если указан.
-  bool isGlobalError([int code]) => toError()?.isGlobalError(code) ?? false;
+  bool isGlobalError([int? code]) => toError()?.isGlobalError(code) ?? false;
 
   /// Определяет, соответствует ли ошибка указанному коду [NetworkErrorCode] если указан.
-  bool isNetworkError([int code]) => toError()?.isNetworkError(code) ?? false;
+  bool isNetworkError([int? code]) => toError()?.isNetworkError(code) ?? false;
 
   /// Возвращает [RemoteError] текущего результата.
-  RemoteError toError() => error is RemoteError ? error as RemoteError : null;
+  RemoteError? toError() => error is RemoteError ? error as RemoteError : null;
 
   /// Возвращает [DioError] текущего результата.
-  DioError toDioError() => error is DioError ? error as DioError : null;
+  DioError? toDioError() => error is DioError ? error as DioError : null;
 }
 
 class _HttpStatus {

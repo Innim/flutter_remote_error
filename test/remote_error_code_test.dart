@@ -34,8 +34,13 @@ void main() {
   });
 }
 
-ErrorResult _dioError({int statusCode}) {
-  return Result<Object>.error(
-          DioError(response: Response<Object>(statusCode: statusCode)))
-      .asError;
+ErrorResult _dioError({required int statusCode}) {
+  final requestOptions = RequestOptions(path: 'fake');
+  return Result<Object>.error(DioError(
+    requestOptions: requestOptions,
+    response: Response<Object>(
+      requestOptions: requestOptions,
+      statusCode: statusCode,
+    ),
+  )).asError!;
 }

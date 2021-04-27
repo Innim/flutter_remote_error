@@ -17,23 +17,21 @@ class RemoteError extends Equatable {
   /// Локализованное сообщение об ошибке.
   ///
   /// Может быть `null`.
-  final String localizedMessage;
+  final String? localizedMessage;
 
   /// Описание ошибки.
   ///
   /// Может быть `null`.
-  final String description;
+  final String? description;
 
   /// Дополнительные данные.
   ///
   /// Может быть `null`.
-  final Map<String, dynamic> data;
+  final Map<String, dynamic>? data;
 
   const RemoteError(this.domain, this.code,
       [this.localizedMessage, this.description, this.data])
-      : assert(domain != null),
-        assert(code != null),
-        super();
+      : super();
 
   /// Создает инстанцию по десериаллизованному JSON.
   factory RemoteError.fromJson(Map<String, dynamic> json) =>
@@ -43,7 +41,8 @@ class RemoteError extends Equatable {
   Map<String, dynamic> toJson() => _$RemoteErrorToJson(this);
 
   @override
-  List<Object> get props => [domain, code, localizedMessage, description, data];
+  List<Object?> get props =>
+      [domain, code, localizedMessage, description, data];
 
   @override
   String toString() {

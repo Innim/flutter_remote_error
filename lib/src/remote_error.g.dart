@@ -13,9 +13,9 @@ RemoteError _$RemoteErrorFromJson(Map<String, dynamic> json) {
   return RemoteError(
     json['domain'] as String,
     json['code'] as int,
-    json['localizedMessage'] as String,
-    json['description'] as String,
-    json['data'] as Map<String, dynamic>,
+    json['localizedMessage'] as String?,
+    json['description'] as String?,
+    json['data'] as Map<String, dynamic>?,
   );
 }
 

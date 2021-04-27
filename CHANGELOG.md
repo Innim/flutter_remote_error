@@ -1,5 +1,9 @@
 ## Next release
 
+## [0.2.0] - 2021-04-27
+
+* Migrate to null-safety.
+
 ## [0.1.4] - 2020-12-11
 
 * Use `innim_lint` analysis options. Refactoring with new rules.
