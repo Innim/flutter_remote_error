@@ -13,14 +13,18 @@ RemoteError _$RemoteErrorFromJson(Map<String, dynamic> json) {
   return RemoteError(
     json['domain'] as String,
     json['code'] as int,
-    json['localizedMessage'] as String?,
-    json['description'] as String?,
-    json['data'] as Map<String, dynamic>?,
+    localizedMessage: json['localizedMessage'] as String?,
+    description: json['description'] as String?,
+    data: json['data'] as Map<String, dynamic>?,
+    retry: json['retry'] as bool? ?? false,
   );
 }
 
 Map<String, dynamic> _$RemoteErrorToJson(RemoteError instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'domain': instance.domain,
+    'code': instance.code,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -28,10 +32,9 @@ Map<String, dynamic> _$RemoteErrorToJson(RemoteError instance) {
     }
   }
 
-  writeNotNull('domain', instance.domain);
-  writeNotNull('code', instance.code);
   writeNotNull('localizedMessage', instance.localizedMessage);
   writeNotNull('description', instance.description);
+  val['retry'] = instance.retry;
   writeNotNull('data', instance.data);
   return val;
 }

@@ -24,14 +24,23 @@ class RemoteError extends Equatable {
   /// Может быть `null`.
   final String? description;
 
+  /// Возможности повторного запроса.
+  @JsonKey(defaultValue: false)
+  final bool retry;
+
   /// Дополнительные данные.
   ///
   /// Может быть `null`.
   final Map<String, dynamic>? data;
 
-  const RemoteError(this.domain, this.code,
-      [this.localizedMessage, this.description, this.data])
-      : super();
+  const RemoteError(
+    this.domain,
+    this.code, {
+    this.localizedMessage,
+    this.description,
+    this.data,
+    this.retry = false,
+  }) : super();
 
   /// Создает инстанцию по десериаллизованному JSON.
   factory RemoteError.fromJson(Map<String, dynamic> json) =>
@@ -42,13 +51,13 @@ class RemoteError extends Equatable {
 
   @override
   List<Object?> get props =>
-      [domain, code, localizedMessage, description, data];
+      [domain, code, localizedMessage, description, data, retry];
 
   @override
   String toString() {
     return 'RemoteError{domain: $domain, code: $code, '
         'localizedMessage: $localizedMessage, '
         'description: $description, '
-        'data: $data}';
+        'data: $data, retry: $retry}';
   }
 }
