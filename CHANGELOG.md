@@ -1,8 +1,9 @@
 ## Next release
 
-## [0.2.1] - 2021-08-19
+## [0.3.0] - 2021-08-23
 
 * Add `retry` param to error model.
+* Parameters `localizedMessage, description, data, retry` have become named.
 
 ## [0.2.0] - 2021-04-27
 

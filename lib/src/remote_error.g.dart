@@ -16,7 +16,7 @@ RemoteError _$RemoteErrorFromJson(Map<String, dynamic> json) {
     localizedMessage: json['localizedMessage'] as String?,
     description: json['description'] as String?,
     data: json['data'] as Map<String, dynamic>?,
-    retry: json['retry'] as bool,
+    retry: json['retry'] as bool ?? false,
   );
 }
 

@@ -25,8 +25,6 @@ class RemoteError extends Equatable {
   final String? description;
 
   /// Возможности повторного запроса.
-  ///
-  /// Может быть `null`.
   final bool retry;
 
   /// Дополнительные данные.
