@@ -25,6 +25,7 @@ class RemoteError extends Equatable {
   final String? description;
 
   /// Возможности повторного запроса.
+  @JsonKey(defaultValue: false)
   final bool retry;
 
   /// Дополнительные данные.
