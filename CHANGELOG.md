@@ -1,5 +1,9 @@
 ## Next release
 
+## [0.2.1] - 2021-08-19
+
+* Add `retry` param to error model.
+
 ## [0.2.0] - 2021-04-27
 
 * Migrate to null-safety.
