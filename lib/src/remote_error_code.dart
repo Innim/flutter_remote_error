@@ -1,5 +1,7 @@
 // Коды серверных ошибок
 
+import 'dart:io';
+
 import 'package:async/async.dart';
 import 'package:dio/dio.dart';
 import 'package:innim_remote_error/innim_remote_error.dart'
@@ -54,6 +56,52 @@ class NetworkErrorCode {
   NetworkErrorCode._();
 }
 
+/// Ошибки авторизации.
+class AuthErrorCode {
+  /// Домен.
+  static const domain = 'Auth';
+
+  /// Неверные данные авторизации (логин/пароль).
+  static const invalidLoginInfo = 1;
+
+  /// Пользователь с указанным email уже существует.
+  static const emailIsBusy = 2;
+
+  /// Неавторизован.
+  ///
+  /// Неверный токен.
+  static const unauthorized = 3;
+
+  /// Токен уже был использован.
+  static const tokenAlreadyUsed = 4;
+
+  /// Токен устарел.
+  ///
+  /// Время жизни токена истекло.
+  static const tokenExpired = 5;
+
+  /// Переданный JWT refresh-токен не найден.
+  static const refreshTokenNotFound = 6;
+
+  /// Действие не поддерживается для данного пользователя.
+  ///
+  /// Например если пользователь, который вошел через внещний сервис
+  /// пытается сменить email (конкретно это поведение будет разрешено
+  /// в будущем).
+  static const unsupportedActionForUser = 7;
+
+  /// Неподдерживаемая версия клиента.
+  static const incorrectClientVersion = 8;
+
+  /// Неверный пароль.
+  static const incorrectPassword = 9;
+
+  /// Токен аннулирован.
+  static const tokenCanceled = 10;
+
+  AuthErrorCode._();
+}
+
 /// Расширения [RemoteError] для работы с кодами общих ошибок.
 extension CommonRemoteErrorExtensionErrorCode on RemoteError {
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
@@ -65,10 +113,13 @@ extension CommonRemoteErrorExtensionErrorCode on RemoteError {
 
   /// Определяет, соответствует ли ошибка указанному коду [NetworkErrorCode] если указан.
   bool isNetworkError([int? code]) => isError(NetworkErrorCode.domain, code);
+
+  /// Определяет, соответствует ли ошибка указанному коду [AuthErrorCode] если указан.
+  bool isAuthError([int? code]) => isError(AuthErrorCode.domain, code);
 }
 
 /// Расширения [ErrorResult] для работы с кодами общих ошибок.
-extension CommonErrorResultExtensionErrorCode on ErrorResult {
+extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   /// Определяет, является ли текущий результат ошибкой 'Не найдено'.
   bool get isNotFound =>
       toError()?.isGlobalError(GlobalErrorCode.notFound) ??
@@ -88,6 +139,11 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
       toError()?.isNetworkError(NetworkErrorCode.socketConnectionFailed) ??
       false;
 
+  /// Определяет, является ли текущая ошибка ошибкой авторизации.
+  bool get isUnauthorized =>
+      this?.toError()?.isAuthError(AuthErrorCode.unauthorized) ??
+      this?.toDioError()?.response?.statusCode == HttpStatus.unauthorized;
+
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
   bool isError(String domain, [int? code]) =>
       toError()?.isError(domain, code) ?? false;
@@ -98,11 +154,16 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult {
   /// Определяет, соответствует ли ошибка указанному коду [NetworkErrorCode] если указан.
   bool isNetworkError([int? code]) => toError()?.isNetworkError(code) ?? false;
 
+  /// Определяет, соответствует ли ошибка указанному коду [AuthErrorCode] если указан.
+  bool isAuthError([int? code]) => toError()?.isAuthError(code) ?? false;
+
   /// Возвращает [RemoteError] текущего результата.
-  RemoteError? toError() => error is RemoteError ? error as RemoteError : null;
+  RemoteError? toError() =>
+      this?.error is RemoteError ? this!.error as RemoteError : null;
 
   /// Возвращает [DioError] текущего результата.
-  DioError? toDioError() => error is DioError ? error as DioError : null;
+  DioError? toDioError() =>
+      this?.error is DioError ? this!.error as DioError : null;
 }
 
 class _HttpStatus {

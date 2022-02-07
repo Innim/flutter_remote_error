@@ -31,6 +31,47 @@ void main() {
         expect(res.isBadRequest, false);
       });
     });
+
+    group('isUnauthorized', () {
+      test('should return true if http status is 401', () {
+        final res = _dioError(statusCode: 401);
+
+        expect(res.isUnauthorized, true);
+      });
+
+      test('should return false if http status is not 401', () {
+        final res = _dioError(statusCode: 400);
+
+        expect(res.isUnauthorized, false);
+      });
+
+      test('should return true if custom error is unauthorized', () {
+        final res = _remoteError(
+          AuthErrorCode.domain,
+          AuthErrorCode.unauthorized,
+        );
+
+        expect(res.isUnauthorized, true);
+      });
+
+      test('should return true if custom error has another domain', () {
+        final res = _remoteError(
+          'fake',
+          AuthErrorCode.unauthorized,
+        );
+
+        expect(res.isUnauthorized, false);
+      });
+
+      test('should return true if custom error has another code', () {
+        final res = _remoteError(
+          AuthErrorCode.domain,
+          AuthErrorCode.emailIsBusy,
+        );
+
+        expect(res.isUnauthorized, false);
+      });
+    });
   });
 }
 
@@ -43,4 +84,8 @@ ErrorResult _dioError({required int statusCode}) {
       statusCode: statusCode,
     ),
   )).asError!;
+}
+
+ErrorResult _remoteError(String domain, int code) {
+  return Result<Object>.error(RemoteError(domain, code)).asError!;
 }

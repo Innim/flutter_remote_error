@@ -1,5 +1,9 @@
 ## Next release
 
+## [0.4.0] - 2022-02-07
+
+* Added `AuthErrorCode` (moved from `login`).
+
 ## [0.3.0] - 2021-08-23
 
 * Add `retry` param to error model.
