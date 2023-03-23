@@ -1,3 +1,7 @@
+## [0.4.1+1] - 2023-03-23
+
+* Up max dio version to 6.0.0.
+
 ## [0.4.1] - 2022-02-16
 
 * Export `DioError`.
