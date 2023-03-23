@@ -1,3 +1,7 @@
+## [0.4.2] - 2023-03-22
+
+* Update dio to 5.0.0 version.
+
 ## [0.4.1] - 2022-02-16
 
 * Export `DioError`.

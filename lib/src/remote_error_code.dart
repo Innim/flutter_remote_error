@@ -2,8 +2,6 @@
 
 import 'dart:io';
 
-import 'package:async/async.dart';
-import 'package:dio/dio.dart';
 import 'package:innim_remote_error/innim_remote_error.dart'
     hide CommonRemoteErrorExtensionErrorCode;
 

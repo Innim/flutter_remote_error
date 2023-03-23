@@ -1,6 +1,6 @@
 name: innim_remote_error
 description: Remote error object and common codes for Innim projects. Using Dio.
-version: 0.4.1
+version: 0.4.2
 homepage: https://github.com/innim/
 repository: https://github.com/Innim/flutter_remote_error
 issue_tracker: https://github.com/Innim/flutter_remote_error/issues
@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   async: ^2.5.0
-  dio: ^4.0.0
+  dio: ^5.0.0
   equatable: ^2.0.0
   json_annotation: ^4.0.0
 
