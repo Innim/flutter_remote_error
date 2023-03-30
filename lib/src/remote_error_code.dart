@@ -54,6 +54,9 @@ class NetworkErrorCode {
   /// Невалидный конечный (end-entity) сертификат.
   static const badCertificate = 7;
 
+  /// Прочая ошибка соединения.
+  static const connectionError = 8;
+
   NetworkErrorCode._();
 }
 
