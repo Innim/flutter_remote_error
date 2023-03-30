@@ -51,6 +51,9 @@ class NetworkErrorCode {
   /// защищенного соединения.
   static const handshakeFailed = 6;
 
+  /// Невалидный конечный (end-entity) сертификат.
+  static const badCertificate = 7;
+
   NetworkErrorCode._();
 }
 

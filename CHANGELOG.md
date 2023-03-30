@@ -1,3 +1,7 @@
+## [0.4.1+2] - 2023-03-30
+
+* Added new error code `badCertificate` to `NetworkErrorCode`.
+
 ## [0.4.1+1] - 2023-03-23
 
 * Up max dio version to 6.0.0.
