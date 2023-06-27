@@ -1,6 +1,7 @@
 ## [0.4.2] - 2023-06-27
 
 * Added `InternalErrorCode`.
+* Up min dio version to 5.2.0.
 
 ## [0.4.1+2] - 2023-03-30
 

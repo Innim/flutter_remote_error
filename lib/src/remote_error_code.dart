@@ -201,9 +201,9 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   RemoteError? toError() =>
       this?.error is RemoteError ? this!.error as RemoteError : null;
 
-  /// Возвращает [DioError] текущего результата.
-  DioError? toDioError() =>
-      this?.error is DioError ? this!.error as DioError : null;
+  /// Возвращает [DioException] текущего результата.
+  DioException? toDioError() =>
+      this?.error is DioException ? this!.error as DioException : null;
 }
 
 class _HttpStatus {
