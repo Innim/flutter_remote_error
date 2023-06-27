@@ -131,14 +131,24 @@ extension InternalErrorCodeExtensionRemoteError on RemoteError {
 
 /// Расширения [ErrorResult] для работы с кодами общих ошибок.
 extension InternalErrorCodeExtensionErrorResult on ErrorResult {
+  static List<int> get _temporaryServerStatuses => [
+        HttpStatus.badGateway,
+        HttpStatus.serviceUnavailable,
+        HttpStatus.gatewayTimeout,
+      ];
+
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isEmptyDataError => isInternalError(InternalErrorCode.emptyData);
+
+  /// Определяет, является ли текущий результат временной ошибкой сервера.
+  bool get isTemporaryServerError =>
+      toError()?.isInternalError(InternalErrorCode.temporaryServerError) ??
+      _temporaryServerStatuses.contains(toDioError()?.response?.statusCode);
 
   /// Определяет, соответствует ли ошибка указанному коду [InternalErrorCode] если указан.
   bool isInternalError([int? code]) =>
       toError()?.isInternalError(code) ?? false;
 }
-
 
 /// Расширения [RemoteError] для работы с кодами общих ошибок.
 extension CommonRemoteErrorExtensionErrorCode on RemoteError {
@@ -161,12 +171,12 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   /// Определяет, является ли текущий результат ошибкой 'Не найдено'.
   bool get isNotFound =>
       toError()?.isGlobalError(GlobalErrorCode.notFound) ??
-      toDioError()?.response?.statusCode == _HttpStatus.notFound;
+      toDioError()?.response?.statusCode == HttpStatus.notFound;
 
   /// Определяет, является ли текущий результат ошибкой 'Неправильные данные запроса'.
   bool get isBadRequest =>
       toError()?.isGlobalError(GlobalErrorCode.badRequest) ??
-      toDioError()?.response?.statusCode == _HttpStatus.badRequest;
+      toDioError()?.response?.statusCode == HttpStatus.badRequest;
 
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isExternalServiceError =>
@@ -181,10 +191,6 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   bool get isUnauthorized =>
       this?.toError()?.isAuthError(AuthErrorCode.unauthorized) ??
       this?.toDioError()?.response?.statusCode == HttpStatus.unauthorized;
-
-  /// Определяет, является ли текущий результат временной ошибкой сервера.
-  bool get isTemporaryServerError => this?.toError()?.isInternalError(InternalErrorCode.temporaryServerError) ??
-      _HttpStatus.temporaryServerStatuses.contains(toDioError()?.response?.statusCode);
 
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
   bool isError(String domain, [int? code]) =>
@@ -206,10 +212,4 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   /// Возвращает [DioException] текущего результата.
   DioException? toDioError() =>
       this?.error is DioException ? this!.error as DioException : null;
-}
-
-class _HttpStatus {
-  static const badRequest = 400;
-  static const notFound = 404;
-  static const temporaryServerStatuses = [502,503,504];
 }
