@@ -134,9 +134,6 @@ extension InternalErrorCodeExtensionErrorResult on ErrorResult {
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isEmptyDataError => isInternalError(InternalErrorCode.emptyData);
 
-  /// Определяет, является ли текущий результат временной ошибкой сервера.
-  bool get isTemporaryServerError => isInternalError(InternalErrorCode.temporaryServerError);
-
   /// Определяет, соответствует ли ошибка указанному коду [InternalErrorCode] если указан.
   bool isInternalError([int? code]) =>
       toError()?.isInternalError(code) ?? false;
@@ -185,6 +182,10 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
       this?.toError()?.isAuthError(AuthErrorCode.unauthorized) ??
       this?.toDioError()?.response?.statusCode == HttpStatus.unauthorized;
 
+  /// Определяет, является ли текущий результат временной ошибкой сервера.
+  bool get isTemporaryServerError => this?.toError()?.isInternalError(InternalErrorCode.temporaryServerError) ??
+      _HttpStatus.temporaryServerStatuses.contains(toDioError()?.response?.statusCode);
+
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
   bool isError(String domain, [int? code]) =>
       toError()?.isError(domain, code) ?? false;
@@ -210,4 +211,5 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
 class _HttpStatus {
   static const badRequest = 400;
   static const notFound = 404;
+  static const temporaryServerStatuses = [502,503,504];
 }
