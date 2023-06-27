@@ -120,8 +120,6 @@ class InternalErrorCode {
   /// Временная ошибка сервера.
   static const temporaryServerError = 2;
 
-
-
   InternalErrorCode._();
 }
 
@@ -135,6 +133,9 @@ extension InternalErrorCodeExtensionRemoteError on RemoteError {
 extension InternalErrorCodeExtensionErrorResult on ErrorResult {
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isEmptyDataError => isInternalError(InternalErrorCode.emptyData);
+
+  /// Определяет, является ли текущий результат временной ошибкой сервера.
+  bool get isTemporaryServerError => isInternalError(InternalErrorCode.temporaryServerError);
 
   /// Определяет, соответствует ли ошибка указанному коду [InternalErrorCode] если указан.
   bool isInternalError([int? code]) =>
