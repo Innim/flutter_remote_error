@@ -3,6 +3,10 @@
 * Added `InternalErrorCode`.
 * Up min dio version to 5.2.0.
 
+## [0.4.1+3] - 2023-03-30
+
+* Added new error code `connectionError` to `NetworkErrorCode`.
+
 ## [0.4.1+2] - 2023-03-30
 
 * Added new error code `badCertificate` to `NetworkErrorCode`.
