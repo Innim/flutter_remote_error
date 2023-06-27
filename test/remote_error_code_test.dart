@@ -77,7 +77,7 @@ void main() {
 
 ErrorResult _dioError({required int statusCode}) {
   final requestOptions = RequestOptions(path: 'fake');
-  return Result<Object>.error(DioError(
+  return Result<Object>.error(DioException(
     requestOptions: requestOptions,
     response: Response<Object>(
       requestOptions: requestOptions,
