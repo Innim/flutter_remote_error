@@ -106,6 +106,42 @@ class AuthErrorCode {
   AuthErrorCode._();
 }
 
+/// Внутренние ошибки.
+class InternalErrorCode {
+  /// Домен.
+  static const domain = 'Internal';
+
+  /// Неизвестная ошибка.
+  static const unknown = 0;
+
+  /// Получен ответ со статусом успеха, но требуемых данных нет.
+  static const emptyData = 1;
+
+  /// Временная ошибка сервера.
+  static const temporaryServerError = 2;
+
+
+
+  InternalErrorCode._();
+}
+
+/// Расширения [RemoteError] для работы с кодами общих ошибок.
+extension InternalErrorCodeExtensionRemoteError on RemoteError {
+  /// Определяет, соответствует ли ошибка указанному коду [InternalErrorCode] если указан.
+  bool isInternalError([int? code]) => isError(InternalErrorCode.domain, code);
+}
+
+/// Расширения [ErrorResult] для работы с кодами общих ошибок.
+extension InternalErrorCodeExtensionErrorResult on ErrorResult {
+  /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
+  bool get isEmptyDataError => isInternalError(InternalErrorCode.emptyData);
+
+  /// Определяет, соответствует ли ошибка указанному коду [InternalErrorCode] если указан.
+  bool isInternalError([int? code]) =>
+      toError()?.isInternalError(code) ?? false;
+}
+
+
 /// Расширения [RemoteError] для работы с кодами общих ошибок.
 extension CommonRemoteErrorExtensionErrorCode on RemoteError {
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.

@@ -1,6 +1,6 @@
-## [0.4.1+3] - 2023-03-30
+## [0.4.2] - 2023-06-27
 
-* Added new error code `connectionError` to `NetworkErrorCode`.
+* Added `InternalErrorCode`.
 
 ## [0.4.1+2] - 2023-03-30
 
