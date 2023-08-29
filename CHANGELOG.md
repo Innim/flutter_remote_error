@@ -1,3 +1,7 @@
+## [0.4.3] - 2023-08-29
+
+* Added new error code `httpException` to `NetworkErrorCode`.
+
 ## [0.4.2] - 2023-06-27
 
 * Added `InternalErrorCode`.

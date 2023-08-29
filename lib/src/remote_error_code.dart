@@ -57,6 +57,11 @@ class NetworkErrorCode {
   /// Прочая ошибка соединения.
   static const connectionError = 8;
 
+  /// HTTP ошибка.
+  ///
+  /// Соответствует HttpException из пакета _http.
+  static const httpException = 9;
+
   NetworkErrorCode._();
 }
 
