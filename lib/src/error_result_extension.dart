@@ -34,7 +34,11 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
       toDioError()?.response?.statusCode == HttpStatus.unauthorized;
 
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
-  bool isError(String domain, [int? code]) =>
+  @Deprecated('Use isRemoteError() instead')
+  bool isError(String domain, [int? code]) => isRemoteError(domain, code);
+
+  /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
+  bool isRemoteError(String domain, [int? code]) =>
       toError()?.isError(domain, code) ?? false;
 
   /// Определяет, соответствует ли ошибка указанному коду [GlobalErrorCode] если указан.
