@@ -30,8 +30,8 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
 
   /// Определяет, является ли текущая ошибка ошибкой авторизации.
   bool get isUnauthorized =>
-      this?.toError()?.isAuthError(AuthErrorCode.unauthorized) ??
-      this?.toDioError()?.response?.statusCode == HttpStatus.unauthorized;
+      toError()?.isAuthError(AuthErrorCode.unauthorized) ??
+      toDioError()?.response?.statusCode == HttpStatus.unauthorized;
 
   /// Определяет, соответствует ли ошибка указанному домену и коду, если указан.
   bool isError(String domain, [int? code]) =>
