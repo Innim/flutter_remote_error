@@ -1,36 +1,38 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'remote_error.g.dart';
 
-/// Объект ошибки, полученный с сервера.
+/// Error object received from the server.
 @JsonSerializable(includeIfNull: false)
 class RemoteError extends Equatable {
-  /// Домен ошибки.
+  /// Error domain.
   @JsonKey(required: true, disallowNullValue: true)
   final String domain;
 
-  /// Код ошибки.
+  /// Error code.
   @JsonKey(required: true, disallowNullValue: true)
   final int code;
 
-  /// Локализованное сообщение об ошибке.
+  /// Localized error message.
   ///
-  /// Может быть `null`.
+  /// Can be `null`.
   final String? localizedMessage;
 
-  /// Описание ошибки.
+  /// Error description.
   ///
-  /// Может быть `null`.
+  /// Can be `null`.
   final String? description;
 
-  /// Возможности повторного запроса.
+  /// Retry capabilities.
   @JsonKey(defaultValue: false)
   final bool retry;
 
-  /// Дополнительные данные.
+  /// Additional data.
   ///
-  /// Может быть `null`.
+  /// Can be `null`.
   final Map<String, dynamic>? data;
 
   const RemoteError(
@@ -42,11 +44,11 @@ class RemoteError extends Equatable {
     this.retry = false,
   }) : super();
 
-  /// Создает инстанцию по десериаллизованному JSON.
+  /// Creates an instance from the deserialized JSON.
   factory RemoteError.fromJson(Map<String, dynamic> json) =>
       _$RemoteErrorFromJson(json);
 
-  /// Преобразует объект в [Map] для сериализации в JSON.
+  /// Converts the object to a [Map] for JSON serialization.
   Map<String, dynamic> toJson() => _$RemoteErrorToJson(this);
 
   @override
@@ -56,7 +58,7 @@ class RemoteError extends Equatable {
   @override
   String toString() {
     return 'RemoteError{domain: $domain, code: $code, '
-        'localizedMessage: $localizedMessage, '
+        'localizedMessage: ${jsonEncode(localizedMessage)}, '
         'description: $description, '
         'data: $data, retry: $retry}';
   }
