@@ -77,13 +77,15 @@ void main() {
 
 ErrorResult _dioError({required int statusCode}) {
   final requestOptions = RequestOptions(path: 'fake');
-  return Result<Object>.error(DioException(
-    requestOptions: requestOptions,
-    response: Response<Object>(
+  return Result<Object>.error(
+    DioException(
       requestOptions: requestOptions,
-      statusCode: statusCode,
+      response: Response<Object>(
+        requestOptions: requestOptions,
+        statusCode: statusCode,
+      ),
     ),
-  )).asError!;
+  ).asError!;
 }
 
 ErrorResult _remoteError(String domain, int code) {
