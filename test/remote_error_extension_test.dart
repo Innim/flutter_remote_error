@@ -119,6 +119,42 @@ void main() {
         },
       );
     });
+
+    group('isValidationError()', () {
+      test('should return true for ValidationErrorCode domain', () {
+        final error = _validationError();
+        expect(error.isValidationError(), isTrue);
+      });
+
+      test('should return true for matching ValidationErrorCode code', () {
+        final error = _validationError(ValidationErrorCode.incorrectInputData);
+        expect(
+          error.isValidationError(ValidationErrorCode.incorrectInputData),
+          isTrue,
+        );
+      });
+
+      test('should return false for non-matching ValidationErrorCode code', () {
+        final error = _validationError(ValidationErrorCode.incorrectInputData);
+        expect(
+          error.isValidationError(ValidationErrorCode.incorrectEmail),
+          isFalse,
+        );
+      });
+
+      test('should return false for non-matching domain', () {
+        final error = _remoteError('other', 1);
+        expect(error.isValidationError(), isFalse);
+      });
+
+      test(
+        'should return false for non-matching domain even if code matches',
+        () {
+          final error = _remoteError('other', 1);
+          expect(error.isValidationError(1), isFalse);
+        },
+      );
+    });
   });
 
   group('InternalErrorCodeExtensionRemoteError', () {
@@ -174,6 +210,11 @@ RemoteError _authError([
   int code = AuthErrorCode.unauthorized,
 ]) =>
     _remoteError(AuthErrorCode.domain, code);
+
+RemoteError _validationError([
+  int code = ValidationErrorCode.incorrectInputData,
+]) =>
+    _remoteError(ValidationErrorCode.domain, code);
 
 RemoteError _internalError([
   int code = InternalErrorCode.temporaryServerError,

@@ -15,6 +15,10 @@ extension CommonRemoteErrorExtensionErrorCode on RemoteError {
 
   /// Определяет, соответствует ли ошибка указанному коду [AuthErrorCode] если указан.
   bool isAuthError([int? code]) => isError(AuthErrorCode.domain, code);
+
+  /// Определяет, соответствует ли ошибка указанному коду [ValidationErrorCode] если указан.
+  bool isValidationError([int? code]) =>
+      isError(ValidationErrorCode.domain, code);
 }
 
 /// Расширения [RemoteError] для работы с кодами общих ошибок.

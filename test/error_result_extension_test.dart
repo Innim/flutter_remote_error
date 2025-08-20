@@ -356,6 +356,61 @@ void main() {
     });
   });
 
+  group('isValidationError()', () {
+    test('should return true for ValidationErrorCode domain', () {
+      final res = _remoteError(
+        ValidationErrorCode.domain,
+        ValidationErrorCode.incorrectPassword,
+      );
+      expect(res.isValidationError(), isTrue);
+    });
+
+    test('should return true for matching ValidationErrorCode code', () {
+      final res = _remoteError(
+        ValidationErrorCode.domain,
+        ValidationErrorCode.incorrectEmail,
+      );
+      expect(
+        res.isValidationError(ValidationErrorCode.incorrectEmail),
+        isTrue,
+      );
+    });
+
+    test('should return false for non-matching ValidationErrorCode code', () {
+      final res = _remoteError(
+        ValidationErrorCode.domain,
+        ValidationErrorCode.incorrectPassword,
+      );
+      expect(
+        res.isValidationError(ValidationErrorCode.incorrectEmail),
+        isFalse,
+      );
+    });
+
+    test('should return false for non-matching domain', () {
+      final res = _remoteError('other', 1);
+      expect(res.isValidationError(), isFalse);
+    });
+
+    test(
+      'should return false for non-matching domain even if code matches',
+      () {
+        final res = _remoteError('other', 1);
+        expect(res.isValidationError(1), isFalse);
+      },
+    );
+
+    test('should return false when no RemoteError', () {
+      final res = _dioError(statusCode: 500);
+      expect(res.isValidationError(), isFalse);
+    });
+
+    test('should return false when called on null', () {
+      const ErrorResult? res = null;
+      expect(res.isValidationError(), isFalse);
+    });
+  });
+
   group('toError()', () {
     test('should return RemoteError when error is RemoteError', () {
       const remoteError = RemoteError('test_domain', 123);

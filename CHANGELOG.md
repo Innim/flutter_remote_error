@@ -1,3 +1,4 @@
+* Added `ValidationErrorCode`.
 * Json serialization for `localizedMessage` in `RemoteError.toString()` (can be multi-line and contain special characters).
 
 ## [0.4.3] - 2023-08-29

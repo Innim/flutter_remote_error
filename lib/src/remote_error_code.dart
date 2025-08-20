@@ -106,6 +106,23 @@ class AuthErrorCode {
   AuthErrorCode._();
 }
 
+/// Ошибки валидации.
+class ValidationErrorCode {
+  /// Домен.
+  static const domain = 'Validation';
+
+  /// Некорректные входные данные.
+  static const incorrectInputData = 1;
+
+  /// Некорректный email.
+  static const incorrectEmail = 2;
+
+  /// Некорректный пароль.
+  static const incorrectPassword = 3;
+
+  ValidationErrorCode._();
+}
+
 /// Внутренние ошибки.
 class InternalErrorCode {
   /// Домен.

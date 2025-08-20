@@ -50,6 +50,10 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   /// Определяет, соответствует ли ошибка указанному коду [AuthErrorCode] если указан.
   bool isAuthError([int? code]) => toError()?.isAuthError(code) ?? false;
 
+  /// Определяет, соответствует ли ошибка указанному коду [ValidationErrorCode] если указан.
+  bool isValidationError([int? code]) =>
+      toError()?.isValidationError(code) ?? false;
+
   /// Возвращает [RemoteError] текущего результата.
   RemoteError? toError() =>
       this?.error is RemoteError ? this!.error as RemoteError : null;
