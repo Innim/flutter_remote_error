@@ -1,3 +1,7 @@
+## [0.4.5] - 2025-12-09
+
+* `AuthErrorCode`: added `incorrectData`, `accessRecoveryInvalidUser`, `externalAuthAccountExists`, `externalAuthAccountNotFound` error codes.
+
 ## [0.4.4] - 2025-08-20
 
 * Added `ValidationErrorCode`.

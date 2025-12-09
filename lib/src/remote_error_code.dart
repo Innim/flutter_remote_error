@@ -103,6 +103,21 @@ class AuthErrorCode {
   /// Токен аннулирован.
   static const tokenCanceled = 10;
 
+  /// Переданные данные некорректны.
+  static const incorrectData = 11;
+
+  /// Ошибка при восстановлении доступа.
+  ///
+  /// Использована ссылка для сброса пароля,
+  /// принадлежащая другому пользователю.
+  static const accessRecoveryInvalidUser = 12;
+
+  /// Попытка регистрации через внешние сервисы, когда аккаунт уже существует.
+  static const externalAuthAccountExists = 13;
+
+  /// Попытка логина через внешние сервисы в несуществующий аккаунт.
+  static const externalAuthAccountNotFound = 14;
+
   AuthErrorCode._();
 }
 
