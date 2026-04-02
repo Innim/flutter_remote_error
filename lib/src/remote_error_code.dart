@@ -17,6 +17,12 @@ class GlobalErrorCode {
   /// Ошибка при взаимодействии с внешними сервисами.
   static const externalServiceError = 3;
 
+  /// Приложение в режиме обслуживания.
+  static const maintenanceError = 5;
+
+  /// Приложение выключено или недоступно.
+  static const serviceDownError = 6;
+
   GlobalErrorCode._();
 }
 

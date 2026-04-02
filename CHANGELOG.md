@@ -1,3 +1,8 @@
+## [0.4.6] - 2026-04-02
+
+* Added `maintenanceError` and `serviceDownError` error codes to `GlobalErrorCode`.
+
+
 ## [0.4.5] - 2025-12-09
 
 * `AuthErrorCode`: added `incorrectData`, `accessRecoveryInvalidUser`, `externalAuthAccountExists`, `externalAuthAccountNotFound` error codes.
