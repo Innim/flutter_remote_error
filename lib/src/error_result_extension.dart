@@ -54,6 +54,18 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   bool isValidationError([int? code]) =>
       toError()?.isValidationError(code) ?? false;
 
+  /// Определяет, является ли ошибка сообщением о режиме обслуживания.
+  ///
+  /// См. [GlobalErrorCode.maintenanceError].
+  bool get isMaintenanceError =>
+      toError()?.isMaintenanceError ?? false;
+
+  /// Определяет, следует ли подавить логирование данной ошибки.
+  ///
+  /// См. [CommonRemoteErrorExtensionErrorCode.shouldSuppressLogging].
+  bool get shouldSuppressLogging =>
+      toError()?.shouldSuppressLogging ?? false;
+
   /// Возвращает [RemoteError] текущего результата.
   RemoteError? toError() =>
       this?.error is RemoteError ? this!.error as RemoteError : null;

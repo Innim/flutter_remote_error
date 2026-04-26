@@ -1,3 +1,10 @@
+## [0.4.7] - 2026-04-27
+
+* Added `isMaintenanceError` and `shouldSuppressLogging` getters to `RemoteError`
+  and `ErrorResult` extensions. `shouldSuppressLogging` indicates that the error
+  should not be logged or shown to the user via a separate message (e.g. during
+  server maintenance).
+
 ## [0.4.6] - 2026-04-02
 
 * Added `maintenanceError` and `serviceDownError` error codes to `GlobalErrorCode`.
