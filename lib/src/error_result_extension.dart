@@ -23,6 +23,12 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   bool get isExternalServiceError =>
       toError()?.isGlobalError(GlobalErrorCode.externalServiceError) ?? false;
 
+  /// Определяет, является ли ошибка сообщением о режиме обслуживания.
+  ///
+  /// См. [GlobalErrorCode.maintenanceError].
+  bool get isMaintenanceError =>
+      toError()?.isGlobalError(GlobalErrorCode.maintenanceError) ?? false;
+
   /// Определяет, является ли текущий результат ошибкой сокет соединения.
   bool get isSocketConnectionFailed =>
       toError()?.isNetworkError(NetworkErrorCode.socketConnectionFailed) ??
@@ -54,18 +60,6 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
   bool isValidationError([int? code]) =>
       toError()?.isValidationError(code) ?? false;
 
-  /// Определяет, является ли ошибка сообщением о режиме обслуживания.
-  ///
-  /// См. [GlobalErrorCode.maintenanceError].
-  bool get isMaintenanceError =>
-      toError()?.isMaintenanceError ?? false;
-
-  /// Определяет, следует ли подавить логирование данной ошибки.
-  ///
-  /// См. [CommonRemoteErrorExtensionErrorCode.shouldSuppressLogging].
-  bool get shouldSuppressLogging =>
-      toError()?.shouldSuppressLogging ?? false;
-
   /// Возвращает [RemoteError] текущего результата.
   RemoteError? toError() =>
       this?.error is RemoteError ? this!.error as RemoteError : null;
@@ -78,7 +72,6 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
 /// Расширения [ErrorResult] для работы с кодами общих ошибок.
 extension InternalErrorCodeExtensionErrorResult on ErrorResult {
   static List<int> get _temporaryServerStatuses => [
-        HttpStatus.badGateway,
         HttpStatus.serviceUnavailable,
         HttpStatus.gatewayTimeout,
       ];
@@ -87,9 +80,13 @@ extension InternalErrorCodeExtensionErrorResult on ErrorResult {
   bool get isEmptyDataError => isInternalError(InternalErrorCode.emptyData);
 
   /// Определяет, является ли текущий результат временной ошибкой сервера.
+  ///
+  /// Включает в себя режим обслуживания (см. [isMaintenanceError]) - он
+  /// также считается временным состоянием сервера.
   bool get isTemporaryServerError =>
-      toError()?.isInternalError(InternalErrorCode.temporaryServerError) ??
-      _temporaryServerStatuses.contains(toDioError()?.response?.statusCode);
+      isMaintenanceError ||
+      (toError()?.isInternalError(InternalErrorCode.temporaryServerError) ??
+          _temporaryServerStatuses.contains(toDioError()?.response?.statusCode));
 
   /// Определяет, соответствует ли ошибка указанному коду [InternalErrorCode] если указан.
   bool isInternalError([int? code]) =>

@@ -19,20 +19,6 @@ extension CommonRemoteErrorExtensionErrorCode on RemoteError {
   /// Определяет, соответствует ли ошибка указанному коду [ValidationErrorCode] если указан.
   bool isValidationError([int? code]) =>
       isError(ValidationErrorCode.domain, code);
-
-  /// Определяет, является ли ошибка сообщением о режиме обслуживания.
-  ///
-  /// См. [GlobalErrorCode.maintenanceError].
-  bool get isMaintenanceError => isGlobalError(GlobalErrorCode.maintenanceError);
-
-  /// Определяет, следует ли подавить логирование данной ошибки.
-  ///
-  /// Возвращает `true` для ошибок, которые являются временным/ожидаемым
-  /// состоянием сервера (например, режим обслуживания) - такие ошибки
-  /// не должны попадать в логи и не должны инициировать показ отдельных
-  /// сообщений пользователю (за исключением случаев, когда пользователю
-  /// требуется показать результат запроса явно).
-  bool get shouldSuppressLogging => isMaintenanceError;
 }
 
 /// Расширения [RemoteError] для работы с кодами общих ошибок.
