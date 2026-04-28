@@ -1,3 +1,13 @@
+## [0.4.7] - 2026-04-27
+
+* Added `isMaintenanceError` getter on `ErrorResult?` extension - returns `true`
+  for `GlobalErrorCode.maintenanceError`.
+* `isTemporaryServerError` now also returns `true` for maintenance errors -
+  maintenance is treated as a temporary server state.
+* `HttpStatus.badGateway` (502) is no longer included in
+  `isTemporaryServerError`. It was a fallback for maintenance handling; with
+  an explicit `maintenanceError` code, 502 should be reported separately.
+
 ## [0.4.6] - 2026-04-02
 
 * Added `maintenanceError` and `serviceDownError` error codes to `GlobalErrorCode`.

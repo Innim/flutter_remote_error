@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:innim_remote_error/innim_remote_error.dart';
 import 'package:test/test.dart';
@@ -82,6 +84,47 @@ void main() {
         const ErrorResult? res = null;
 
         expect(res.isExternalServiceError, false);
+      });
+    });
+
+    group('isMaintenanceError', () {
+      test('should return true for GlobalErrorCode.maintenanceError', () {
+        final res = _remoteError(
+          GlobalErrorCode.domain,
+          GlobalErrorCode.maintenanceError,
+        );
+
+        expect(res.isMaintenanceError, isTrue);
+      });
+
+      test('should return false for other GlobalErrorCode code', () {
+        final res = _remoteError(
+          GlobalErrorCode.domain,
+          GlobalErrorCode.notFound,
+        );
+
+        expect(res.isMaintenanceError, isFalse);
+      });
+
+      test('should return false for non-matching domain', () {
+        final res = _remoteError(
+          'other_domain',
+          GlobalErrorCode.maintenanceError,
+        );
+
+        expect(res.isMaintenanceError, isFalse);
+      });
+
+      test('should return false when no RemoteError', () {
+        final res = _dioError(statusCode: 500);
+
+        expect(res.isMaintenanceError, isFalse);
+      });
+
+      test('should return false when called on null', () {
+        const ErrorResult? res = null;
+
+        expect(res.isMaintenanceError, isFalse);
       });
     });
 
@@ -408,6 +451,58 @@ void main() {
     test('should return false when called on null', () {
       const ErrorResult? res = null;
       expect(res.isValidationError(), isFalse);
+    });
+  });
+
+  group('InternalErrorCodeExtensionErrorResult', () {
+    group('isTemporaryServerError', () {
+      test('should return true for InternalErrorCode.temporaryServerError', () {
+        final res = _remoteError(
+          InternalErrorCode.domain,
+          InternalErrorCode.temporaryServerError,
+        );
+
+        expect(res.isTemporaryServerError, isTrue);
+      });
+
+      test('should return true for GlobalErrorCode.maintenanceError', () {
+        final res = _remoteError(
+          GlobalErrorCode.domain,
+          GlobalErrorCode.maintenanceError,
+        );
+
+        expect(res.isTemporaryServerError, isTrue);
+      });
+
+      test('should return true if http status is 503', () {
+        final res = _dioError(statusCode: HttpStatus.serviceUnavailable);
+
+        expect(res.isTemporaryServerError, isTrue);
+      });
+
+      test('should return true if http status is 504', () {
+        final res = _dioError(statusCode: HttpStatus.gatewayTimeout);
+
+        expect(res.isTemporaryServerError, isTrue);
+      });
+
+      test('should return false if http status is 502', () {
+        final res = _dioError(statusCode: HttpStatus.badGateway);
+
+        expect(res.isTemporaryServerError, isFalse);
+      });
+
+      test('should return false if http status is 500', () {
+        final res = _dioError(statusCode: HttpStatus.internalServerError);
+
+        expect(res.isTemporaryServerError, isFalse);
+      });
+
+      test('should return false for other RemoteError', () {
+        final res = _remoteError('other', 1);
+
+        expect(res.isTemporaryServerError, isFalse);
+      });
     });
   });
 
