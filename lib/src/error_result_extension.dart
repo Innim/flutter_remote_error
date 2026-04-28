@@ -71,10 +71,10 @@ extension CommonErrorResultExtensionErrorCode on ErrorResult? {
 
 /// Расширения [ErrorResult] для работы с кодами общих ошибок.
 extension InternalErrorCodeExtensionErrorResult on ErrorResult {
-  static List<int> get _temporaryServerStatuses => [
+  static const _temporaryServerStatuses = {
         HttpStatus.serviceUnavailable,
         HttpStatus.gatewayTimeout,
-      ];
+      };
 
   /// Определяет, является ли текущий результат ошибкой взаимодействия с внешними сервисами.
   bool get isEmptyDataError => isInternalError(InternalErrorCode.emptyData);
