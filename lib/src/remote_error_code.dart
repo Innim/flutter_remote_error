@@ -124,6 +124,9 @@ class AuthErrorCode {
   /// Попытка логина через внешние сервисы в несуществующий аккаунт.
   static const externalAuthAccountNotFound = 14;
 
+  /// PoW-челлендж не найден или истёк.
+  static const powChallengeNotFound = 15;
+
   AuthErrorCode._();
 }
 

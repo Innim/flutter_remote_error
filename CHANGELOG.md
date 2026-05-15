@@ -1,3 +1,7 @@
+## [0.4.8]
+
+* `AuthErrorCode`: added `powChallengeNotFound` error code.
+
 ## [0.4.7]
 
 * Added `isMaintenanceError` getter on `ErrorResult?` extension - returns `true`
